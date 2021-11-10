@@ -8,3 +8,4 @@ nuget Microsoft.AspNetCore.Authentication.Cookies < 6
 nuget Microsoft.AspNetCore.Authentication.OpenIdConnect < 6
 nuget FSharp.Core ~> 5
 nuget Microsoft.AspNetCore.Razor.Language < 6
+nuget Criipto.Configuration
