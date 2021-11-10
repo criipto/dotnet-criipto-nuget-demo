@@ -7,24 +7,6 @@
       "commands": [
         "paket"
       ]
-    },
-    "fable": {
-      "version": "3.2.11",
-      "commands": [
-        "fable"
-      ]
-    },
-    "fantomas-tool": {
-      "version": "4.5.2",
-      "commands": [
-        "fantomas"
-      ]
-    },
-    "femto": {
-      "version": "0.9.0",
-      "commands": [
-        "femto"
-      ]
     }
   }
 }
