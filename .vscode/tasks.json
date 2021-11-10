@@ -15,7 +15,7 @@
                 "/consoleloggerparameters:NoSummary"
             ],
             "options":{
-                "cwd" : "${workspaceFolder}/Web/"
+                "cwd" : "${workspaceFolder}/src/"
             },
             "group": "build",
             "presentation": {

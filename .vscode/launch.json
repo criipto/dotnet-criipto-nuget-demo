@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Web/bin/Debug/net5.0/Criipto.NugetSample.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/net5.0/Criipto.NugetSample.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Web",
+            "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
