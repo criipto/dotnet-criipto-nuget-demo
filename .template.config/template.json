@@ -1,12 +1,54 @@
 {
     "$schema": "http://json.schemastore.org/template",
-    "author": "Me",
-    "classifications": [ "Common", "Console", "C#9" ],
+    "author": "Criipto Aps",
+    "classifications": [ "Common", "Web"],
     "identity": "Criipto.Configuration Sample",
     "name": "Criipto.Configuration Sample",
     "shortName": "CriiptoSample",
     "tags": {
       "language": "C#",
       "type": "project"
-    }
+    },
+    "symbols": {
+        "domain":{
+            "type" : "parameter",
+            "replaces" : "fablecriipto-test.criipto.id",
+            "isRequired": true
+        },
+        "clientid":{
+            "type" : "parameter",
+            "dataType" : "int",
+            "replaces": "1880",
+            "isRequired": true
+        },
+        "acr":{
+            "type": "parameter",
+            "replaces": "urn:grn:authn:dk:mitid:low"
+        },
+        "UserSecrets":{
+            "type": "parameter",
+            "datatype":"text"
+        },
+        "DefaultUserSecrets":{
+          "type": "generated",
+          "generator": "guid"
+        },
+        "UserSecretsReplacer": {
+          "type": "generated",
+          "generator": "coalesce",
+          "parameters": {
+            "sourceVariableName": "UserSecrets",
+            "fallbackVariableName": "DefaultUserSecrets"
+          },
+          "replaces": "df704b16-9cd8-4555-b9dc-633190fd6cf7"
+        }
+    },
+    "sources": [
+        {
+          "exclude" : ".git",
+          "modifiers": [{
+            "exclude": [ ".github/**",".template.config/**", "**/bin/","**/obj","paket.lock",,".git*"]
+          }]
+        }
+      ]
   }
