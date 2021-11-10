@@ -1,0 +1,10 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: net5.0, netstandard2.0, netstandard2.1
+
+nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation < 6 
+nuget Microsoft.AspNetCore.Authentication.Cookies < 6
+nuget Microsoft.AspNetCore.Authentication.OpenIdConnect < 6
+nuget FSharp.Core ~> 5
+nuget Microsoft.AspNetCore.Razor.Language < 6
