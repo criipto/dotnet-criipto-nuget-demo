@@ -22,4 +22,3 @@ dotnet paket update
 
 If you are using VS Code there's already a launch configuration, so you should be able to start the site from the debug console (F5)
 Same goes for Visual Studio pressing F5 will start the application
-
