@@ -15,26 +15,9 @@ open Azure.Extensions.AspNetCore.Configuration.Secrets
 open Azure.Identity
 
 type Startup private () =
-    new (env : IHostEnvironment) as this =
-        let environmentName = 
-            match System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") with
-            null | "" -> "Production"
-            | name -> name
-
-        let builder = 
-            ConfigurationBuilder().SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                                  .AddJsonFile("appsettings.json", optional = false, reloadOnChange = true)             
-                                  .AddJsonFile(sprintf "appsettings.%s.json" environmentName, optional = true)             
-                                  .AddEnvironmentVariables()             
+    new (configuration: IConfiguration) as this =
         Startup() then
-        let builder = 
-            if env.IsDevelopment() then                                  
-                builder.AddUserSecrets<Startup>(true, reloadOnChange = true)
-            
-            else
-                builder
-        
-        this.Configuration <- (builder.Build()) :> IConfiguration
+        this.Configuration <- configuration
         
         
 
