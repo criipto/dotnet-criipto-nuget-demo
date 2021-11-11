@@ -4,3 +4,5 @@ Microsoft.AspNetCore.Authentication.OpenIdConnect
 FSharp.Core
 System.Text.Json
 Criipto.Configuration
+Azure.Extensions.AspNetCore.Configuration.Secrets
+Azure.Identity

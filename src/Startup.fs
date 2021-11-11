@@ -9,10 +9,13 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Microsoft.AspNetCore.Http
 open Criipto.Configuration.AuthenticationBuilderExtensions
-    
+open System.Linq;
+open System.Security.Cryptography.X509Certificates
+open Azure.Extensions.AspNetCore.Configuration.Secrets
+open Azure.Identity
+
 type Startup private () =
     new (env : IHostEnvironment) as this =
-        
         let environmentName = 
             match System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") with
             null | "" -> "Production"
@@ -23,26 +26,29 @@ type Startup private () =
                                   .AddJsonFile("appsettings.json", optional = false, reloadOnChange = true)             
                                   .AddJsonFile(sprintf "appsettings.%s.json" environmentName, optional = true)             
                                   .AddEnvironmentVariables()             
+        Startup() then
         let builder = 
             if env.IsDevelopment() then                                  
                 builder.AddUserSecrets<Startup>(true, reloadOnChange = true)
             elif env.IsProduction() then
                 let builtConfig = builder.Build()
-                use store = new X509Store(StoreLocation.CurrentUser)
+                use store = new X509Store(StoreLocation.CurrentUser)          
                 store.Open(OpenFlags.ReadOnly)
-                let certs = store.Certificates.Find(
-                                   X509FindType.FindByThumbprint,
-                                   builtConfig["AzureADCertThumbprint"], false)
+                let certs = store.Certificates.Find(X509FindType.FindByThumbprint,
+                                                    builtConfig.["AzureADCertThumbprint"], 
+                                                    false)
 
-                config.AddAzureKeyVault(Uri(builtConfig["KeyVaultName"] |> sprintf "https://%s.vault.azure.net/"),
-                                            ClientCertificateCredential(builtConfig["AzureADDirectoryId"], 
-                                                                        builtConfig["AzureADApplicationId"], 
+                let builder = 
+                    builder.AddAzureKeyVault(System.Uri(builtConfig.["KeyVaultName"] |> sprintf "https://%s.vault.azure.net/"),
+                                            ClientCertificateCredential(builtConfig.["AzureADDirectoryId"], 
+                                                                        builtConfig.["AzureADApplicationId"], 
                                                                         certs.OfType<X509Certificate2>().Single()),
                                             KeyVaultSecretManager())
                 store.Close()
+                builder
             else
                 builder
-        Startup() then
+        
         this.Configuration <- (builder.Build()) :> IConfiguration
         
         
