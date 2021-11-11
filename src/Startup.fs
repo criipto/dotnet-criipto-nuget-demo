@@ -30,22 +30,7 @@ type Startup private () =
         let builder = 
             if env.IsDevelopment() then                                  
                 builder.AddUserSecrets<Startup>(true, reloadOnChange = true)
-            elif env.IsProduction() then
-                let builtConfig = builder.Build()
-                use store = new X509Store(StoreLocation.CurrentUser)          
-                store.Open(OpenFlags.ReadOnly)
-                let certs = store.Certificates.Find(X509FindType.FindByThumbprint,
-                                                    builtConfig.["AzureADCertThumbprint"], 
-                                                    false)
-
-                let builder = 
-                    builder.AddAzureKeyVault(System.Uri(builtConfig.["KeyVaultName"] |> sprintf "https://%s.vault.azure.net/"),
-                                            ClientCertificateCredential(builtConfig.["AzureADDirectoryId"], 
-                                                                        builtConfig.["AzureADApplicationId"], 
-                                                                        certs.OfType<X509Certificate2>().Single()),
-                                            KeyVaultSecretManager())
-                store.Close()
-                builder
+            
             else
                 builder
         
