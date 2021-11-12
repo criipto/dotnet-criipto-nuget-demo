@@ -1,6 +1,6 @@
 {
     "$schema": "http://json.schemastore.org/template",
-    "author": "Criipto Aps",
+    "author": "Criipto ApS",
     "classifications": [ "Common", "Web"],
     "identity": "Criipto.Configuration Sample",
     "name": "Criipto.Configuration Sample",
@@ -17,8 +17,8 @@
         },
         "clientid":{
             "type" : "parameter",
-            "dataType" : "int",
-            "replaces": "1880",
+            "dataType" : "text",
+            "replaces": "urn:my:application:identifier:1880",
             "isRequired": true
         },
         "acr":{
@@ -47,7 +47,7 @@
         {
           "exclude" : ".git",
           "modifiers": [{
-            "exclude": [ ".github/**",".template.config/**", "**/bin/","**/obj","paket.lock",,".git*"]
+            "exclude": [ ".github/**",".template.config/**", "**/bin/","**/obj","paket.lock",".git*"]
           }]
         }
       ]
