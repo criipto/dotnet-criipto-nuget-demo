@@ -2,9 +2,9 @@
     "$schema": "http://json.schemastore.org/template",
     "author": "Criipto ApS",
     "classifications": [ "Common", "Web"],
-    "identity": "Criipto.Configuration Sample",
-    "name": "Criipto.Configuration Sample",
-    "shortName": "CriiptoSample",
+    "identity": "Criipto ASP.NET core Sample",
+    "name": "Criipto ASP.NET core Sample",
+    "shortName": "CriiptoAspNetCore",
     "tags": {
       "language": "C#",
       "type": "project"
