@@ -1,13 +1,13 @@
 source https://api.nuget.org/v3/index.json
-
+source /Users/rune/source/Criipto.Configuration/package/
 storage: none
-framework: net5.0, netstandard2.0, netstandard2.1
+framework: net6.0, net5.0
 
-nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation < 6 
-nuget Microsoft.AspNetCore.Authentication.Cookies < 6
-nuget Microsoft.AspNetCore.Authentication.OpenIdConnect < 6
-nuget FSharp.Core ~> 5
-nuget Microsoft.AspNetCore.Razor.Language < 6
-nuget Criipto.Configuration 0.1.1
+nuget Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation 
+nuget Microsoft.AspNetCore.Authentication.Cookies 
+nuget Microsoft.AspNetCore.Authentication.OpenIdConnect 
+nuget FSharp.Core 
+nuget Microsoft.AspNetCore.Razor.Language 
+nuget Criipto.Configuration
 nuget Azure.Extensions.AspNetCore.Configuration.Secrets
 nuget Azure.Identity
