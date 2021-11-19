@@ -1,8 +1,93 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<div data-v-081c0a81="" id="dropzone" class="container has-background-link">
+    <div data-v-07f55d0a="" data-v-081c0a81="">
+    </div><!---->
+    <div data-v-081c0a81="" class="container is-centered">
+        <nav data-v-cd57c856="" data-v-081c0a81="" role="navigation" aria-label="main navigation" class="navbar">
+            <div data-v-cd57c856="" class="navbar-brand">
+                <a data-v-cd57c856="" class="navbar-item logo"><img data-v-cd57c856="" src="https://criipto.com/images/logo.svg"></a>
+                <a data-v-cd57c856="" role="button" aria-label="menu" aria-expanded="false" class="navbar-burger burger">
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-body">  
+                    <p class="title has-text-white">Accounts</p>
+                    <div class="is-pulled-right">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-48x48">
+                                            @if(Model.ImageUrl != Microsoft.FSharp.Core.FSharpOption<string>.None){<img src="@Model.ImageUrl.Value" alt="Profile image">}
+                                            else {<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">}
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-4">@Model.Name</p>
+                                        <p class="subtitle is-6">Date of birth: <time class="is-family-monospace " datetime="2016-1-1">@Model.DateOfBirth</time></p>
+                                        @if(Model.Email != Microsoft.FSharp.Core.FSharpOption<string>.None){<p class="subtitle is-6">Email: @Model.Email.Value</p>}
+                                        
+                                    </div>
+                                </div>
+                                <div class="content">
+                                    There's no new messages from the bank.
+                                    To see old messages go to <a href="#">your inbox</a>
+                                    <br>
+                                    <br>
+                                    <time class="is-pulled-right is-size-7 is-family-monospace has-text-weight-light" datetime="2016-1-1">@System.DateTime.Now.ToShortDateString()</time>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    <table class="table has-mobile-cards is-hoverable">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell">
+                                    
+                                </th>
+                                <th class="is-current-sort is-sortable">
+                                    <div class="th-wrap">Name <span class="icon is-small"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="is-sortable" style="width: 150px;">
+                                    <div class="th-wrap is-numeric">Balance <span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="is-sortable" style="width: 200px;">
+                                    <div class="th-wrap is-numeric">Latest transaction <span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="" style="width: 51px;">
+                                    <div class="th-wrap"> <span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var account in this.Model.Accounts) {
+                                <tr draggable="false" class="file-row type-dir">
+                                    <td class="checkbox-cell">
+                                        <label class="b-checkbox checkbox"><input type="checkbox" true-value="true" value="false"> <span class="check"></span> <span class="control-label"></span></label>
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="Name" class="">
+                                        <span>
+                                            <a data-v-081c0a81="" class="is-block name"> @account.Name</a>
+                                        </span>
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="Size" class="has-text-right">
+                                        @if(account.Balance < 0.0m){<span class="has-text-danger">@account.Balance </span>} else {<span>@account.Balance </span>} 
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="Time" class="has-text-right">
+                                        <span> @account.LatestMovement.ToShortDateString() </span>
+                                    </td>
+                                </tr>
+                            } 
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>

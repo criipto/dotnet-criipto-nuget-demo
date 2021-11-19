@@ -9,10 +9,6 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Microsoft.AspNetCore.Http
 open Criipto.Configuration.AuthenticationBuilderExtensions
-open System.Linq;
-open System.Security.Cryptography.X509Certificates
-open Azure.Extensions.AspNetCore.Configuration.Secrets
-open Azure.Identity
 
 type Startup private () =
     new (configuration: IConfiguration) as this =
@@ -35,7 +31,11 @@ type Startup private () =
                         options.DefaultScheme <- CookieAuthenticationDefaults.AuthenticationScheme
                         options.DefaultChallengeScheme <- OpenIdConnectDefaults.AuthenticationScheme
                     ).AddCookie()
-        authbuilder.AddOpenIdConnect(this.Configuration) |> ignore
+        authbuilder.AddOpenIdConnect(this.Configuration, fun options ->
+            let validationParameters = Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            validationParameters.NameClaimType <- "name"
+            options.TokenValidationParameters <- validationParameters
+        ) |> ignore
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member __.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
