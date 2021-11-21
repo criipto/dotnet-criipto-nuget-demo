@@ -5,6 +5,7 @@ type LedgerEntry =
     {
         Date : System.DateTime
         Amount : decimal
+        Balance : decimal
         Text : string
     }
 

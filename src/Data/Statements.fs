@@ -468,11 +468,20 @@ let generate (name : string) maxLedgerLength =
                            [] -> System.DateTime.Now.Date.AddDays(dateInterval)
                            | e::_ -> e.Date.AddDays(dateInterval)
                      Amount = amount
+                     Balance = 0m
                      Text = text
                   }::entries
             
             ) []
-            |> List.rev
+            |> List.fold(fun entries entry ->
+                let balance = 
+                    match entries with
+                    [] -> 0m
+                    | e::_ -> e.Balance
+                {
+                   entry with Balance = balance + entry.Amount
+                }::entries
+            ) []
          {
             Name = accountName
             Ledger = ledgerEntries

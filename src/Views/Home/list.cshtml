@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = @Model.Name;
+}
+<div data-v-081c0a81="" id="dropzone" class="container has-background-link">
+    <div data-v-07f55d0a="" data-v-081c0a81="">
+    </div><!---->
+    <div data-v-081c0a81="" class="container is-centered">
+        <nav data-v-cd57c856="" data-v-081c0a81="" role="navigation" aria-label="main navigation" class="navbar">
+            <div data-v-cd57c856="" class="navbar-brand">
+                <a data-v-cd57c856="" class="navbar-item logo"><img data-v-cd57c856="" src="https://criipto.com/images/logo.svg"></a>
+                <a data-v-cd57c856="" role="button" aria-label="menu" aria-expanded="false" class="navbar-burger burger">
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                    <span data-v-cd57c856="" aria-hidden="true"></span>
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <section class="hero">
+                <div class="hero-body">  
+                    <p class="title has-text-white">@Model.Name</p>
+                    <table class="table has-mobile-cards is-hoverable">
+                        <thead>
+                            <tr>
+                                <th class="checkbox-cell">
+                                    
+                                </th>
+                                <th class="is-current-sort is-sortable">
+                                    <div class="th-wrap">Date <span class="icon is-small"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="is-sortable" style="width: 150px;">
+                                    <div class="th-wrap is-numeric">Text <span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="is-sortable" style="width: 200px;">
+                                    <div class="th-wrap is-numeric">Amount<span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                                <th class="" style="width: 51px;">
+                                    <div class="th-wrap"> <span class="icon is-small" style="display: none;"><i class="fas fa-arrow-up"></i></span></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ledgerEntry in this.Model.Ledger) {
+                                <tr draggable="false" class="file-row type-dir">
+                                    <td class="checkbox-cell">
+                                        <label class="b-checkbox checkbox"><input type="checkbox" true-value="true" value="false"> <span class="check"></span> <span class="control-label"></span></label>
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="date" class="">
+                                        <span>
+                                            <a data-v-081c0a81="" class="is-block date"> @ledgerEntry.Date.ToShortDateString()</a>
+                                        </span>
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="Time" class="has-text-right">
+                                        <span> @ledgerEntry.Text</span>
+                                    </td>
+                                    <td data-v-081c0a81="" data-label="Size" class="has-text-right">
+                                        <span>@ledgerEntry.Amount</span><br>
+                                        <span class="is-size-7 is-italic has-text-weight-light">@ledgerEntry.Balance</span>
+                                    </td>
+                                </tr>
+                            } 
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>

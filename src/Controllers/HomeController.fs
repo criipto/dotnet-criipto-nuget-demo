@@ -12,35 +12,34 @@ open System.Security.Claims
 type HomeController (logger : ILogger<HomeController>) =
     inherit Controller()
 
-    
+    member private this.ClaimsIdentity with get() = this.User.Identity :?> ClaimsIdentity
+    member private this.ValueOrElse claimsName =
+        match this.ClaimsIdentity.FindFirst(fun c -> c.Type = claimsName) with
+        null -> None
+        | c -> Some c.Value
+    member private this.TryFindClaimsValue possibleClaimsName =
+        possibleClaimsName
+        |> Seq.map(this.ValueOrElse)    
+        |> Seq.tryFind Option.isSome
+        |> Option.map Option.get
+
     [<Authorize>]
     member this.Index () =
-        let accountsList = Statements.generate "user" 100
-        let claimsIdentity = this.User.Identity :?> ClaimsIdentity
-        
-        let valueOrElse claimsName =
-            match claimsIdentity.FindFirst(fun c -> c.Type = claimsName) with
-            null -> None
-            | c -> Some c.Value
-        let tryFindClaimsValue possibleClaimsName =
-            possibleClaimsName
-            |> Seq.map(valueOrElse)    
-            |> Seq.tryFind Option.isSome
-            |> Option.map Option.get
-        let name = valueOrElse "name"
+        let name = 
+            match this.ValueOrElse "name" with
+            None -> "Jane Doe"
+            | Some n -> n
+        let accountsList = Statements.generate name 100
         let emailAddress = 
             [ClaimTypes.Email;"email"]
-            |> tryFindClaimsValue
+            |> this.TryFindClaimsValue
         let dateofbirth = 
             [ClaimTypes.DateOfBirth;"birthdate"]
-            |> tryFindClaimsValue
-        let profileImage = valueOrElse "picture"
+            |> this.TryFindClaimsValue
+        let profileImage = this.ValueOrElse "picture"
         let usr = 
             {
-                Name = 
-                    match name with
-                    None -> "Jane Doe"
-                    | Some n -> n
+                Name = name
                 DateOfBirth = 
                     match dateofbirth with
                     None -> ""
@@ -55,7 +54,21 @@ type HomeController (logger : ILogger<HomeController>) =
     member this.Privacy () =
         this.View()
 
-    member this.Callback() =
+    [<Authorize>]
+    member this.List(id) =
+        let name = 
+            match this.ValueOrElse "name" with
+            None -> "Jane Doe"
+            | Some n -> n
+        let accountsList = Statements.generate name 100
+        let account = 
+            match accountsList |> List.tryFind(fun a -> a.Name = id) with
+            Some a -> a
+            | None -> 
+                printfn "%s not found in %A" id (accountsList |> List.map(fun a -> a.Name))
+                failwith "Account not found"
+        this.View(account)
+    member _.Callback() =
         RedirectToActionResult("Index", "ControllerName",obj())
 
     [<ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)>]
