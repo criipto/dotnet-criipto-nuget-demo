@@ -41,7 +41,7 @@
                                     To see old messages go to <a href="#">your inbox</a>
                                     <br>
                                     <br>
-                                    <time class="is-pulled-right is-size-7 is-family-monospace has-text-weight-light" datetime="2016-1-1">@System.DateTime.Now.ToShortDateString()</time>
+                                    <time class="is-pulled-right is-size-7 is-family-monospace has-text-weight-light" datetime="2016-1-1">@System.DateTime.Now.ToString("yyyy-MM-dd",new System.Globalization.CultureInfo("da-DK"))</time>
                                 </div>
                             </div>
                             </div>
@@ -81,7 +81,7 @@
                                         @if(account.Balance < 0.0m){<span class="has-text-danger">@account.Balance </span>} else {<span>@account.Balance </span>} 
                                     </td>
                                     <td data-v-081c0a81="" data-label="Time" class="has-text-right">
-                                        <span> @account.LatestMovement.ToShortDateString() </span>
+                                        <span> @account.LatestMovement.ToString("yyyy-MM-dd",new System.Globalization.CultureInfo("da-DK")) </span>
                                     </td>
                                 </tr>
                             } 
